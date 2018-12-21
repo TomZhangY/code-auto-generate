@@ -37,9 +37,13 @@ public class FreemarkerUtil {
     }
 
     public void generateFile(Object object,Class obj){
+        Map<String,String> valueMap = new HashMap<String, String>();
 
     }
 
+    private void generateFile0(){
+
+    }
 
     public void generateFile(Object object,String className){
         FileWriter out = null;
@@ -55,13 +59,13 @@ public class FreemarkerUtil {
             Map<String,String> map = new HashMap<String, String>();
             // service层
             map.put("service",className+"Service.java");
-//            map.put("service/impl",className+"ServiceImpl.java");
+            map.put("service/impl",className+"ServiceImpl.java");
 //            // 实体层
 //            map.put("entity",className+".java");
 //            // 数据访问层
-//            map.put("repository",className+"Repository.java");
-//            map.put("repository/impl",className+"RepositoryImpl.java");
-//            map.put("repository/enhance",className+"RepositoryEnhance.java");
+            map.put("repository",className+"Repository.java");
+            map.put("repository/impl",className+"RepositoryImpl.java");
+            map.put("repository/enhance",className+"RepositoryEnhance.java");
 
 
             Map<String,String> valueMap = new HashMap<String, String>();
@@ -81,7 +85,7 @@ public class FreemarkerUtil {
                 }
                 out = new FileWriter(new File(directory + "/"+map.get(key)));
                 Template temp = cfg.getTemplate(key.replace("/","")+".ftl");
-                valueMap.put("directory",key);
+                valueMap.put("directory",key.replace("/","."));
                 temp.process(valueMap, out);
             }
         } catch (Exception e) {
